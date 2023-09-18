@@ -5,7 +5,7 @@ function Footer() {
     <footer>
       <div className="container">
         <center>
-        <p>&copy; 2023 Gracia. All Rights Reserved. </p>
+        <p>&copy; ARMAN STEVEN GRACIA - 2023 </p>
         </center>
       </div>
     </footer>

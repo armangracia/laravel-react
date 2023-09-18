@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return response()->json(['posts' => $posts]);
+        return response()->json(["posts" => $posts], 200);
     }
 
     /**
@@ -31,14 +31,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post();
+        
+        $post = new Post;
         $post->title = $request->title;
-        $post->slug = $request->slug;
         $post->content = $request->content;
-        $post->user_id = '1';
+        $post->slug = $request->slug;
+        $post->user_id = $request->user;
         $post->save();
 
-        return response()->json(['status' => 'post saved', 'code' => 200]);
+        return response()->json(["post" => $post, "message" => "successfully created"], 200);
     }
 
     /**
@@ -55,7 +56,7 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::find($id);
-        return response()->json($post);
+        return response()->json(["post" => $post], 200);
     }
 
     /**
@@ -63,14 +64,11 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request);
         $post = Post::find($id);
-        $post->title=$request->title;
-        $post->slug=$request->slug;
-        $post->content = $request->content;
-        $post->user_id='1';
-        $post->save();
-        return response()->json(['status'=>'post saved', 'code'=>201]);
-
+        $post->update($request->all());
+        
+        return response()->json(["post" => $post, "message" => "successfully updated"], 200);
     }
 
     /**
@@ -79,6 +77,6 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         Post::destroy($id);
-        return response()->json(['status'=>'post deleted', 'code'=>200]);
+        return response()->json(["message" => "successfully deleted"], 200);
     }
 }

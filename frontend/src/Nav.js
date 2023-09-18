@@ -1,11 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Nav = () => {
     return (
-        
-            <nav className='navbar sticky-top navbar-expand-lg navbar-dark bg-success'>
-            <Link className="navbar-brand" to="/">My App</Link>
+        <nav className='navbar sticky-top navbar-expand-lg navbar-dark bg-success'>
+            <a className="navbar-brand" href="#"></a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -23,4 +22,4 @@ const Nav = () => {
     )
 }
 
-export default Nav;
+export default Nav

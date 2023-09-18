@@ -5,7 +5,10 @@ function Footer() {
     <footer>
       <div className="container">
         <center>
-        <p>&copy; ARMAN STEVEN GRACIA - 2023 </p>
+        <p>&Theta;	 2023 KMB &Theta;	
+            <br />
+            &clubs;	 BSIT-NS-3A-T &clubs;	
+        </p>
         </center>
       </div>
     </footer>

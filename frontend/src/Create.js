@@ -8,7 +8,7 @@ const Create = () => {
 
     const styles = {
         width: "50%",
-        // minWidth: "400px"
+        
     }
 
     const handleSubmit = e => {
@@ -16,7 +16,7 @@ const Create = () => {
         console.log(title, content, user)
 
         axios
-            .post('http://localhost:8000/api/post', state)
+            .post('http://127.0.0.1:8000/api/posts', state)
             .then((res) => {
                 console.log(res.data);
                 setState({
@@ -41,7 +41,6 @@ const Create = () => {
     const { title, content, user, slug } = state;
 
     const handleChange = name => event => {
-        // console.log('name', name, 'event', event.target.value);
         setState({ ...state, [name]: event.target.value });
     }
 

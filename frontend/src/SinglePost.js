@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, CardHeader, Card } from '@mui/material';
 import axios from 'axios'
 import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
+
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import { red } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import Nav from './Nav';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+import otter from '../src/otter.png';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
-})(({ theme, expand }) => ({
+})
+
+(({ theme, expand }) => ({
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
@@ -42,10 +44,10 @@ const SinglePost = () => {
     console.log(id);
 
     const fetchPost = () => {
-        axios.get(`http://localhost:8000/api/posts/${id}`)
+        axios.get(`http://localhost:8000/api/post/${id}/edit`)
             .then(response => {
                 console.log(response.data);
-                setPost(response.data);
+                setPost(response.data.post);
             })
             .catch(error => alert('Error Fetching Posts'));
     }
@@ -53,7 +55,7 @@ const SinglePost = () => {
     useEffect(() => {
         fetchPost();
     }, []);
-
+    // console.log(post.title)
     return (
         <div>
             <Nav /><br />
@@ -61,8 +63,8 @@ const SinglePost = () => {
                 <Card sx={{ maxwidth: '345' }}>
                     <CardHeader
                         avatar={
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                JP
+                            <Avatar sx={{ bgcolor: green[500] }} aria-label="recipe">
+                                AD
                             </Avatar>
                         }
                         action={
@@ -75,8 +77,8 @@ const SinglePost = () => {
                     />
                     <CardMedia
                         component="img"
-                        height="394"
-                        image="/images/haerin.jpg"
+                        height="700"
+                        image={otter}
                         alt={post.title}
                     />
                     <CardContent>
@@ -102,7 +104,6 @@ const SinglePost = () => {
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography paragraph>Method:</Typography>
                             <Typography paragraph>
                                 {post.slug}
                             </Typography>

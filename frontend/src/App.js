@@ -1,20 +1,22 @@
-import logo from './logo.svg';
+
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Create from './Create';
+
+
 import Nav from './Nav';
-import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import Title from './Title';
+import Footer from './Footer'
 import PostList from './PostList';
+
 
 const App = () => {
   const [posts, setPosts] = useState([])
 
   const fetchPosts = () => {
-    axios.get('http://127.0.0.1:8000/api/posts')
+    axios.get('http://127.0.0.1:8000/api/post')
       .then(res => {
         // console.log(res.data.posts);
         setPosts(res.data.posts)
@@ -28,8 +30,7 @@ const App = () => {
 
   const handleDelete = e => {
     const id = e.target.getAttribute('data-id')
-    if (window.confirm('sure ka?')) {
-      alert('OKAY')
+    if (window.confirm('Are you sure do you want to delete this post?')) {
       axios
         .delete(`http://localhost:8000/api/post/${id}`, {
         })
@@ -48,33 +49,17 @@ const App = () => {
   }
 
   return (
-    // <div className="App" >
-    //   <Nav />
-    //   <div className='container p-xxl-5 p-sm-5'>
-    //     {posts.map((post) => (
-    //       <div key={post.id} style={{ marginBottom: "50px" }}>
-    //         <h3>{post.title}</h3>
-    //         <p>{post.content}</p>
-    //         <div style={{ display: "flex", justifyContent: "center" }}>
-    //           <button className='btn btn-outline-primary' style={{ marginRight: "10px" }} >Edit</button>
-    //           <button data-id={post.id} onClick={handleDelete} className='btn btn-outline-danger'>Delete</button>
-    //         </div>
-    //       </div>
-    //     ))}
-    //   </div>
-    //   <Footer />
-    // </div>
-    <div>
-    <Nav /><br/>
-    <div className='container pb-5' >
-      <Title title='Welcome to my Blog' user='Zoro' />
-      {posts.map((post, i) => (
-        <div className='container'>
-          <PostList post={post} /><br />
-        </div>
-      ))}
+    <div className="App" >
+      <Nav />
+      <div className='container p-xxl-5 p-sm-5'>
+        {posts.map((post, i) => (
+          <div className='container' key={i}>
+            <PostList post={post} handleDelete={handleDelete} /><br />
+          </div>
+        ))}
+      </div>
+      <Footer />
     </div>
-  </div>
   );
 }
 
